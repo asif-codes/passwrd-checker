@@ -1,5 +1,6 @@
 import sys
 import requests
+import hashlib
 
 # function for requesting api data
 def request_api_data(query_char):
@@ -17,6 +18,13 @@ def get_password_leaks_count(hashes, hash_to_check):
         if h == hash_to_check:
             return count
     return 0
+
+# function for checking if password has been pwned
+def pwned_api_check(password):
+    sha1password = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
+    first5_char, tail = sha1password[:5], sha1password[5:]
+    response = request_api_data(first5_char)
+    return get_password_leaks_count(response, tail)
 
 if __name__ == '__main__':
     sys.exit()
