@@ -26,5 +26,16 @@ def pwned_api_check(password):
     response = request_api_data(first5_char)
     return get_password_leaks_count(response, tail)
 
+# main function for running the program
+def main(args):
+    for password in args:
+        count = pwned_api_check(password)
+        if count:
+            print(
+                f'{password} was found {count} times... you should probably change your password!')
+        else:
+            print(f'{password} was not found. Carry on!')
+    return 'done!'
+
 if __name__ == '__main__':
     sys.exit()
