@@ -38,4 +38,4 @@ def main(args):
     return 'done!'
 
 if __name__ == '__main__':
-    sys.exit()
+    sys.exit(main(sys.argv[1:]))
